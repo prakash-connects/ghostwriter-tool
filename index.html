@@ -7,78 +7,83 @@
   <meta name="description" content="Humanize AI-generated content instantly. A free tool by Prakash Behera — Strategic Brand & Growth Marketer." />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0a0a0a;
-      --surface: #141414;
-      --border: #222;
-      --border-hover: #333;
-      --text: #e8e8e8;
-      --muted: #888;
-      --faint: #555;
-      --white: #ffffff;
-      --accent: #ffffff;
-      --radius: 12px;
+      --bg: #0a0a0a; --surface: #141414; --border: #222;
+      --text: #e8e8e8; --muted: #888; --faint: #555; --white: #ffffff;
     }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; min-height: 100vh; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      min-height: 100vh;
-      padding: 0;
-    }
-
+    /* ── BANNER ── */
     .banner {
-      background: #111;
-      border-bottom: 1px solid #1e1e1e;
-      padding: 10px 20px;
-      text-align: center;
-      font-size: 0.78rem;
-      color: #666;
-      line-height: 1.6;
-    }
-    .banner a { color: #888; text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
-    .banner a:hover { color: var(--text); }
-    .banner strong { color: #999; }
-
-    nav {
+      background: linear-gradient(135deg, #0f0f0f 0%, #111 50%, #0d0d0d 100%);
+      border-bottom: 1px solid #1a1a1a;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 18px 32px;
-      border-bottom: 1px solid var(--border);
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .nav-logo { font-size: 0.85rem; font-weight: 600; color: var(--white); text-decoration: none; letter-spacing: 0.02em; }
-    .nav-logo span { color: var(--muted); font-weight: 400; }
+    .banner-icon {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      padding: 4px 10px;
+      flex-shrink: 0;
+    }
+    .banner-icon .dot { width: 6px; height: 6px; border-radius: 50%; background: #f87171; }
+    .banner-icon span { font-size: 0.7rem; color: #777; letter-spacing: 0.06em; text-transform: uppercase; font-weight: 500; }
+    .banner-text { font-size: 0.8rem; color: #666; line-height: 1.55; text-align: center; }
+    .banner-text strong { color: #aaa; font-weight: 500; }
+    .banner-text a {
+      color: #888;
+      text-decoration: none;
+      border-bottom: 1px solid #333;
+      padding-bottom: 1px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .banner-text a:hover { color: var(--text); border-color: #666; }
+    .banner-divider { color: #333; font-size: 0.8rem; }
+
+    /* ── NAV ── */
+    nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 32px; border-bottom: 1px solid var(--border); }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-icon svg { display: block; }
+    .nav-logo-text { font-size: 0.85rem; font-weight: 600; color: var(--white); letter-spacing: 0.02em; }
+    .nav-logo-text span { color: var(--muted); font-weight: 400; }
     .nav-links { display: flex; gap: 20px; align-items: center; }
     .nav-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     .nav-links a:hover { color: var(--text); }
 
+    /* ── HERO ── */
     .hero { max-width: 680px; margin: 52px auto 0; padding: 0 20px; text-align: center; }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--muted); background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 4px 12px; margin-bottom: 20px;
+    .hero-logo {
+      display: inline-flex; flex-direction: column; align-items: center;
+      gap: 0; margin-bottom: 28px;
+    }
+    .hero-logo svg { filter: drop-shadow(0 0 24px rgba(255,255,255,0.08)); }
+    .hero-logo-label {
+      font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: #444; margin-top: 8px;
     }
     .hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; color: var(--white); line-height: 1.18; margin-bottom: 14px; }
     .hero p { font-size: 1rem; color: var(--muted); line-height: 1.65; max-width: 480px; margin: 0 auto 36px; }
 
+    /* ── TOOL ── */
     .tool-wrap { max-width: 820px; margin: 0 auto; padding: 0 20px 80px; }
     .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 12px; }
-
     .api-row { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
     .api-row label { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
     .api-row input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; color: var(--text); font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
     .api-row input:focus { border-color: #444; }
     .api-row a { font-size: 0.75rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
     .api-row a:hover { color: var(--text); }
-
     .controls-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
     .controls-row select { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text); font-size: 0.82rem; outline: none; cursor: pointer; transition: border-color 0.2s; }
     .controls-row select:focus { border-color: #444; }
-
     .textarea-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     @media (max-width: 600px) { .textarea-grid { grid-template-columns: 1fr; } }
     .textarea-wrap label { display: block; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
@@ -86,66 +91,101 @@
     textarea:focus { border-color: #444; }
     textarea[readonly] { color: #ccc; cursor: default; }
     textarea::placeholder { color: #444; }
-
     .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
     .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: #0a0a0a; border: none; border-radius: 8px; padding: 11px 24px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s, transform 0.15s; }
     .btn-primary:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
     .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
     .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 10px 16px; font-size: 0.82rem; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
     .btn-ghost:hover { border-color: #444; color: var(--text); }
-
     .status { font-size: 0.82rem; color: var(--muted); margin-left: auto; }
     .status.error { color: #f87171; }
     .status.success { color: #86efac; }
     .status.loading { color: #93c5fd; }
-
     .changes-panel { margin-top: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: none; }
     .changes-panel.visible { display: block; }
     .changes-panel h3 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
     .changes-panel ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
     .changes-panel li { font-size: 0.82rem; color: #aaa; padding-left: 16px; position: relative; line-height: 1.5; }
     .changes-panel li::before { content: '\2192'; position: absolute; left: 0; color: var(--faint); }
-
     .risk-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-top: 10px; }
     .risk-low    { background: #14532d33; color: #86efac; border: 1px solid #86efac33; }
     .risk-medium { background: #78350f33; color: #fcd34d; border: 1px solid #fcd34d33; }
     .risk-high   { background: #7f1d1d33; color: #f87171; border: 1px solid #f87171aa; }
-
     footer { border-top: 1px solid #1a1a1a; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
     footer p, footer a { font-size: 0.78rem; color: var(--faint); text-decoration: none; }
     footer a:hover { color: var(--muted); }
-
     @keyframes spin { to { transform: rotate(360deg); } }
     .spinner { width: 14px; height: 14px; border: 2px solid #333; border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
-
     .toast { position: fixed; bottom: 24px; right: 24px; background: var(--white); color: #0a0a0a; padding: 10px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
     .toast.show { opacity: 1; }
   </style>
 </head>
 <body>
 
+  <!-- BANNER -->
   <div class="banner">
-    <strong>⚠️ Personal Project</strong> — This tool is built for my own use and learning.
-    It's public so you can see how it works. For large-scale or production use,
-    <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">download the skill from my GitHub</a>
-    and use it inside your own Claude or Perplexity setup.
-    &nbsp;·&nbsp; Built by <a href="https://prakashconnects.me" target="_blank">Prakash Behera</a>
+    <div class="banner-icon">
+      <div class="dot"></div>
+      <span>Personal Build</span>
+    </div>
+    <p class="banner-text">
+      <strong>Built for learning, shared for transparency.</strong>
+      This is a personal tool — I made it public so you can see exactly how it was built and how it works.
+      Want to run it at scale?
+      <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">Grab the skill from GitHub</a>
+      and drop it into your own Claude or Perplexity workspace.
+    </p>
+    <span class="banner-divider">·</span>
+    <p class="banner-text">Made by <a href="https://prakashconnects.me" target="_blank">Prakash Behera</a></p>
   </div>
 
+  <!-- NAV -->
   <nav>
-    <a href="https://prakashconnects.me" class="nav-logo">Prakash<span>connects.me</span></a>
+    <a href="https://prakashconnects.me" class="nav-logo">
+      <span class="nav-logo-icon">
+        <!-- Ghostwriter quill mark -->
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 2C18 2 14 4 10 10C8 13 7 16 7 16L10 13C10 13 9 17 6 20" stroke="#ffffff" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M6 20C6 20 7 18 9 17" stroke="#555" stroke-width="1.2" stroke-linecap="round"/>
+          <circle cx="18" cy="2" r="1.5" fill="#ffffff" opacity="0.6"/>
+        </svg>
+      </span>
+      <span class="nav-logo-text">Prakash<span>connects.me</span></span>
+    </a>
     <div class="nav-links">
       <a href="https://prakashconnects.me/tools">← All Tools</a>
       <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">GitHub</a>
     </div>
   </nav>
 
+  <!-- HERO with LOGO -->
   <div class="hero">
-    <div class="hero-badge">✍️ AI Ghostwriter v1.0</div>
+    <div class="hero-logo">
+      <!-- Creative ghostwriter logo: quill + ghost silhouette merged -->
+      <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ghost body -->
+        <path d="M20 52V30C20 19.5 28 12 36 12C44 12 52 19.5 52 30V52L46 48L40 52L36 49L32 52L26 48L20 52Z" fill="#141414" stroke="#2a2a2a" stroke-width="1.5"/>
+        <!-- Ghost eyes -->
+        <circle cx="30" cy="31" r="3" fill="#ffffff" opacity="0.15"/>
+        <circle cx="42" cy="31" r="3" fill="#ffffff" opacity="0.15"/>
+        <circle cx="31" cy="31" r="1.2" fill="#ffffff" opacity="0.5"/>
+        <circle cx="43" cy="31" r="1.2" fill="#ffffff" opacity="0.5"/>
+        <!-- Quill over ghost -->
+        <path d="M50 14C50 14 38 22 32 34C29.5 39.5 29 44 29 44L34 39C34 39 32 45 28 50" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Quill tip detail -->
+        <path d="M28 50C28 50 30 47 33 46" stroke="#666" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- Ink dot at nib -->
+        <circle cx="50" cy="14" r="2.5" fill="#ffffff" opacity="0.7"/>
+        <!-- Subtle glow ring -->
+        <circle cx="36" cy="36" r="33" stroke="#ffffff" stroke-width="0.5" opacity="0.04"/>
+      </svg>
+      <span class="hero-logo-label">AI Ghostwriter</span>
+    </div>
     <h1>Humanize Your AI Content</h1>
     <p>Paste AI-generated text. Get back something that reads like a real human wrote it — higher perplexity, natural burstiness, zero AI fingerprints.</p>
   </div>
 
+  <!-- TOOL -->
   <div class="tool-wrap">
     <div class="tool-card">
       <div class="api-row">
@@ -274,12 +314,10 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
             })
           }
         );
-
         if (!res.ok) {
           const err = await res.json();
           throw new Error(err.error?.message || `API error ${res.status}`);
         }
-
         const data = await res.json();
         const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
         if (!raw) throw new Error('Empty response from Gemini');
@@ -296,18 +334,14 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
             .map(l => l.replace(/^[-•]\s*/, '').trim()).filter(l => l.length > 0);
           document.getElementById('changesList').innerHTML = changes.map(c => `<li>${c}</li>`).join('');
         }
-
         if (riskMatch) {
           const riskText = riskMatch[1].trim();
           const afterMatch = riskText.match(/After:\s*(Low|Medium|High)/i);
           const level = afterMatch ? afterMatch[1].toLowerCase() : 'low';
-          document.getElementById('riskBadge').innerHTML =
-            `<span class="risk-badge risk-${level}">📊 ${riskText}</span>`;
+          document.getElementById('riskBadge').innerHTML = `<span class="risk-badge risk-${level}">📊 ${riskText}</span>`;
         }
-
         document.getElementById('changesPanel').classList.add('visible');
         setStatus('Done ✓', 'success');
-
       } catch (e) {
         setStatus('Error: ' + e.message, 'error');
       } finally {
@@ -321,7 +355,6 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
       el.textContent = msg;
       el.className = 'status ' + (type || '');
     }
-
     function copyOutput() {
       const text = document.getElementById('outputText').value;
       if (!text) return;
@@ -331,14 +364,12 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
         setTimeout(() => toast.classList.remove('show'), 2200);
       });
     }
-
     function clearAll() {
       document.getElementById('inputText').value = '';
       document.getElementById('outputText').value = '';
       document.getElementById('changesPanel').classList.remove('visible');
       setStatus('', '');
     }
-
     document.addEventListener('keydown', e => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') humanize();
     });
