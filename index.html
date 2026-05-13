@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Ghostwriter | Prakash Connects</title>
+  <meta name="description" content="Humanize AI-generated content instantly. A free tool by Prakash Behera — Strategic Brand & Growth Marketer." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --border: #222;
+      --border-hover: #333;
+      --text: #e8e8e8;
+      --muted: #888;
+      --faint: #555;
+      --white: #ffffff;
+      --accent: #ffffff;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 0;
+    }
+
+    .banner {
+      background: #111;
+      border-bottom: 1px solid #1e1e1e;
+      padding: 10px 20px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #666;
+      line-height: 1.6;
+    }
+    .banner a { color: #888; text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+    .banner a:hover { color: var(--text); }
+    .banner strong { color: #999; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 0.85rem; font-weight: 600; color: var(--white); text-decoration: none; letter-spacing: 0.02em; }
+    .nav-logo span { color: var(--muted); font-weight: 400; }
+    .nav-links { display: flex; gap: 20px; align-items: center; }
+    .nav-links a { font-size: 0.8rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { max-width: 680px; margin: 52px auto 0; padding: 0 20px; text-align: center; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 4px 12px; margin-bottom: 20px;
+    }
+    .hero h1 { font-size: clamp(1.9rem, 4.5vw, 2.8rem); font-weight: 700; color: var(--white); line-height: 1.18; margin-bottom: 14px; }
+    .hero p { font-size: 1rem; color: var(--muted); line-height: 1.65; max-width: 480px; margin: 0 auto 36px; }
+
+    .tool-wrap { max-width: 820px; margin: 0 auto; padding: 0 20px 80px; }
+    .tool-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 28px; margin-top: 12px; }
+
+    .api-row { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+    .api-row label { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+    .api-row input { flex: 1; min-width: 200px; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; color: var(--text); font-size: 0.85rem; outline: none; transition: border-color 0.2s; }
+    .api-row input:focus { border-color: #444; }
+    .api-row a { font-size: 0.75rem; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+    .api-row a:hover { color: var(--text); }
+
+    .controls-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .controls-row select { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; color: var(--text); font-size: 0.82rem; outline: none; cursor: pointer; transition: border-color 0.2s; }
+    .controls-row select:focus { border-color: #444; }
+
+    .textarea-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 600px) { .textarea-grid { grid-template-columns: 1fr; } }
+    .textarea-wrap label { display: block; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    textarea { width: 100%; height: 260px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 14px; color: var(--text); font-size: 0.88rem; line-height: 1.65; resize: vertical; outline: none; font-family: inherit; transition: border-color 0.2s; }
+    textarea:focus { border-color: #444; }
+    textarea[readonly] { color: #ccc; cursor: default; }
+    textarea::placeholder { color: #444; }
+
+    .btn-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--white); color: #0a0a0a; border: none; border-radius: 8px; padding: 11px 24px; font-size: 0.88rem; font-weight: 600; cursor: pointer; transition: opacity 0.2s, transform 0.15s; }
+    .btn-primary:hover:not(:disabled) { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); border-radius: 8px; padding: 10px 16px; font-size: 0.82rem; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+    .btn-ghost:hover { border-color: #444; color: var(--text); }
+
+    .status { font-size: 0.82rem; color: var(--muted); margin-left: auto; }
+    .status.error { color: #f87171; }
+    .status.success { color: #86efac; }
+    .status.loading { color: #93c5fd; }
+
+    .changes-panel { margin-top: 16px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 16px; display: none; }
+    .changes-panel.visible { display: block; }
+    .changes-panel h3 { font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    .changes-panel ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .changes-panel li { font-size: 0.82rem; color: #aaa; padding-left: 16px; position: relative; line-height: 1.5; }
+    .changes-panel li::before { content: '\2192'; position: absolute; left: 0; color: var(--faint); }
+
+    .risk-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin-top: 10px; }
+    .risk-low    { background: #14532d33; color: #86efac; border: 1px solid #86efac33; }
+    .risk-medium { background: #78350f33; color: #fcd34d; border: 1px solid #fcd34d33; }
+    .risk-high   { background: #7f1d1d33; color: #f87171; border: 1px solid #f87171aa; }
+
+    footer { border-top: 1px solid #1a1a1a; padding: 24px 32px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    footer p, footer a { font-size: 0.78rem; color: var(--faint); text-decoration: none; }
+    footer a:hover { color: var(--muted); }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .spinner { width: 14px; height: 14px; border: 2px solid #333; border-top-color: #000; border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; }
+
+    .toast { position: fixed; bottom: 24px; right: 24px; background: var(--white); color: #0a0a0a; padding: 10px 18px; border-radius: 8px; font-size: 0.82rem; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="banner">
+    <strong>⚠️ Personal Project</strong> — This tool is built for my own use and learning.
+    It's public so you can see how it works. For large-scale or production use,
+    <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">download the skill from my GitHub</a>
+    and use it inside your own Claude or Perplexity setup.
+    &nbsp;·&nbsp; Built by <a href="https://prakashconnects.me" target="_blank">Prakash Behera</a>
+  </div>
+
+  <nav>
+    <a href="https://prakashconnects.me" class="nav-logo">Prakash<span>connects.me</span></a>
+    <div class="nav-links">
+      <a href="https://prakashconnects.me/tools">← All Tools</a>
+      <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-badge">✍️ AI Ghostwriter v1.0</div>
+    <h1>Humanize Your AI Content</h1>
+    <p>Paste AI-generated text. Get back something that reads like a real human wrote it — higher perplexity, natural burstiness, zero AI fingerprints.</p>
+  </div>
+
+  <div class="tool-wrap">
+    <div class="tool-card">
+      <div class="api-row">
+        <label>Gemini API Key</label>
+        <input type="password" id="apiKey" placeholder="Paste your free Gemini API key here" />
+        <a href="https://aistudio.google.com/app/apikey" target="_blank">Get free key →</a>
+      </div>
+      <div class="controls-row">
+        <select id="platform">
+          <option value="General">Platform: General</option>
+          <option value="LinkedIn">LinkedIn</option>
+          <option value="WhatsApp">WhatsApp / Chat</option>
+          <option value="Blog">Blog / Article</option>
+          <option value="Email">Email</option>
+          <option value="Quora">Quora / Forum</option>
+          <option value="Comment">Comment / Reply</option>
+        </select>
+        <select id="tone">
+          <option value="Professional-Conversational">Tone: Professional-Conversational</option>
+          <option value="Casual">Casual</option>
+          <option value="Formal">Formal</option>
+        </select>
+        <select id="length">
+          <option value="Preserve">Length: Preserve</option>
+          <option value="Tighten">Tighten</option>
+          <option value="Expand">Expand</option>
+        </select>
+      </div>
+      <div class="textarea-grid">
+        <div class="textarea-wrap">
+          <label>Input — Paste AI text here</label>
+          <textarea id="inputText" placeholder="Paste your AI-generated content here...&#10;&#10;Any length from 5 words to 10,000 words."></textarea>
+        </div>
+        <div class="textarea-wrap">
+          <label>Output — Humanized version</label>
+          <textarea id="outputText" readonly placeholder="Your humanized content will appear here..."></textarea>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="humanizeBtn" onclick="humanize()">
+          <span id="btnIcon">✨</span> Humanize
+        </button>
+        <button class="btn-ghost" onclick="copyOutput()">Copy Output</button>
+        <button class="btn-ghost" onclick="clearAll()">Clear</button>
+        <span class="status" id="status"></span>
+      </div>
+      <div class="changes-panel" id="changesPanel">
+        <h3>🔧 Key Changes Made</h3>
+        <ul id="changesList"></ul>
+        <div id="riskBadge"></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2026 Prakash Behera · <a href="https://prakashconnects.me">prakashconnects.me</a></p>
+    <p>
+      <a href="https://github.com/prakash-connects/Ghostwriter-Artifact-Claude" target="_blank">View on GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://prakashconnects.me/tools">More Tools</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:beheraprakash300@outlook.com">Contact</a>
+    </p>
+  </footer>
+
+  <div class="toast" id="toast">Copied to clipboard ✓</div>
+
+  <script>
+    const SYSTEM_PROMPT = `You are a precision content humanizer trained on the science of AI text detection. Transform the given text so it reads as genuinely human — raising statistical perplexity, injecting burstiness, and eliminating every detectable AI linguistic fingerprint.
+
+HARD BAN — never use these words/phrases:
+"It's important to note", "It is worth noting", "Moreover", "Furthermore", "Indeed", "Consequently", "In conclusion", "To summarize", "In summary", "This underscores", "This highlights", "This demonstrates", "Needless to say", "At the end of the day", "In today's fast-paced world", "In the ever-evolving landscape", "Leverage" (metaphorical), "Utilize" (when "use" works), "Delve into", "Deep dive", "Navigate the landscape", "Tapestry", "Pivotal", "Meticulous", "Meticulously", "Vibrant", "Realm", "Showcasing", "Underscores", "Seamlessly", "Game-changer", "Revolutionary", "Groundbreaking", "Paradigm shift", "It seems that", "It appears that", "In order to", "Due to the fact that", "Each and every", "First and foremost", "Last but not least"
+
+RULES:
+- Every paragraph: at least one sentence under 8 words AND one over 25 words
+- Use contractions: it's, you're, they've, won't, can't
+- Use precise nouns over generic terms
+- Vary paragraph lengths — never uniform
+- Natural transitions only ("That said", "Here's where it gets interesting", "Which brings me to")
+- First-person where appropriate ("Honestly,", "In my experience...")
+- Preserve 100% of original meaning and facts
+- Keep length within ±15% of original
+
+RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
+🟢 Humanized Content:
+[rewritten text]
+
+🔧 Key Changes Made:
+- [specific change 1]
+- [specific change 2]
+- [specific change 3]
+
+📊 AI Risk: Original: [High/Medium/Low] → After: [Low] | Patterns fixed: [2-3 items]`;
+
+    async function humanize() {
+      const apiKey = document.getElementById('apiKey').value.trim();
+      const inputText = document.getElementById('inputText').value.trim();
+      const platform = document.getElementById('platform').value;
+      const tone = document.getElementById('tone').value;
+      const length = document.getElementById('length').value;
+      const btn = document.getElementById('humanizeBtn');
+      const btnIcon = document.getElementById('btnIcon');
+
+      if (!apiKey) { setStatus('Paste your Gemini API key first', 'error'); return; }
+      if (!inputText) { setStatus('Paste some text to humanize', 'error'); return; }
+      if (inputText.split(' ').length < 5) { setStatus('Text too short — need at least 5 words', 'error'); return; }
+
+      btn.disabled = true;
+      btnIcon.innerHTML = '<span class="spinner"></span>';
+      setStatus('Humanizing...', 'loading');
+      document.getElementById('changesPanel').classList.remove('visible');
+      document.getElementById('outputText').value = '';
+
+      const userMessage = `Platform: ${platform}\nTone: ${tone}\nLength: ${length}\n\nText to humanize:\n${inputText}`;
+
+      try {
+        const res = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+              contents: [{ parts: [{ text: userMessage }] }],
+              generationConfig: { temperature: 0.85, maxOutputTokens: 8192 }
+            })
+          }
+        );
+
+        if (!res.ok) {
+          const err = await res.json();
+          throw new Error(err.error?.message || `API error ${res.status}`);
+        }
+
+        const data = await res.json();
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        if (!raw) throw new Error('Empty response from Gemini');
+
+        const humanizedMatch = raw.match(/🟢 Humanized Content:\n([\s\S]*?)(?=🔧 Key Changes|$)/);
+        const changesMatch = raw.match(/🔧 Key Changes Made:\n([\s\S]*?)(?=📊 AI Risk|$)/);
+        const riskMatch = raw.match(/📊 AI Risk:(.*)/);
+
+        const humanized = humanizedMatch ? humanizedMatch[1].trim() : raw;
+        document.getElementById('outputText').value = humanized;
+
+        if (changesMatch) {
+          const changes = changesMatch[1].trim().split('\n')
+            .map(l => l.replace(/^[-•]\s*/, '').trim()).filter(l => l.length > 0);
+          document.getElementById('changesList').innerHTML = changes.map(c => `<li>${c}</li>`).join('');
+        }
+
+        if (riskMatch) {
+          const riskText = riskMatch[1].trim();
+          const afterMatch = riskText.match(/After:\s*(Low|Medium|High)/i);
+          const level = afterMatch ? afterMatch[1].toLowerCase() : 'low';
+          document.getElementById('riskBadge').innerHTML =
+            `<span class="risk-badge risk-${level}">📊 ${riskText}</span>`;
+        }
+
+        document.getElementById('changesPanel').classList.add('visible');
+        setStatus('Done ✓', 'success');
+
+      } catch (e) {
+        setStatus('Error: ' + e.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btnIcon.textContent = '✨';
+      }
+    }
+
+    function setStatus(msg, type) {
+      const el = document.getElementById('status');
+      el.textContent = msg;
+      el.className = 'status ' + (type || '');
+    }
+
+    function copyOutput() {
+      const text = document.getElementById('outputText').value;
+      if (!text) return;
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById('toast');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2200);
+      });
+    }
+
+    function clearAll() {
+      document.getElementById('inputText').value = '';
+      document.getElementById('outputText').value = '';
+      document.getElementById('changesPanel').classList.remove('visible');
+      setStatus('', '');
+    }
+
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') humanize();
+    });
+  </script>
+</body>
+</html>
