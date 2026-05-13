@@ -288,21 +288,7 @@
     <div class="hero-logo">
       <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="40" cy="40" r="38" stroke="var(--logo-ring)" stroke-width="1"/>
-        <path d="
-          M16 58
-          V35
-          C16 22 27 13 40 13
-          C53 13 64 22 64 35
-          V58
-          L57 53.5
-          L50.5 58
-          L44.5 54.5
-          L40 57
-          L35.5 54.5
-          L29.5 58
-          L23 53.5
-          Z
-        " fill="var(--ghost-fill)" stroke="var(--ghost-stroke)" stroke-width="1.6" stroke-linejoin="round"/>
+        <path d="M16 58 V35 C16 22 27 13 40 13 C53 13 64 22 64 35 V58 L57 53.5 L50.5 58 L44.5 54.5 L40 57 L35.5 54.5 L29.5 58 L23 53.5 Z" fill="var(--ghost-fill)" stroke="var(--ghost-stroke)" stroke-width="1.6" stroke-linejoin="round"/>
         <ellipse cx="33" cy="35" rx="3.5" ry="4" fill="var(--ghost-eye)"/>
         <circle cx="34" cy="34.5" r="1.3" fill="var(--bg)" opacity="0.5"/>
         <ellipse cx="47" cy="35" rx="3.5" ry="4" fill="var(--ghost-eye)"/>
@@ -392,7 +378,6 @@
   <script>
     const SYSTEM_PROMPT = `You are a precision content humanizer trained on the science of AI text detection. Transform the given text so it reads as genuinely human — raising statistical perplexity, injecting burstiness, and eliminating every detectable AI linguistic fingerprint.\n\nHARD BAN — never use these words/phrases:\n"It's important to note", "It is worth noting", "Moreover", "Furthermore", "Indeed", "Consequently", "In conclusion", "To summarize", "In summary", "This underscores", "This highlights", "This demonstrates", "Needless to say", "At the end of the day", "In today's fast-paced world", "In the ever-evolving landscape", "Leverage" (metaphorical), "Utilize" (when "use" works), "Delve into", "Deep dive", "Navigate the landscape", "Tapestry", "Pivotal", "Meticulous", "Meticulously", "Vibrant", "Realm", "Showcasing", "Underscores", "Seamlessly", "Game-changer", "Revolutionary", "Groundbreaking", "Paradigm shift", "It seems that", "It appears that", "In order to", "Due to the fact that", "Each and every", "First and foremost", "Last but not least"\n\nRULES:\n- Every paragraph: at least one sentence under 8 words AND one over 25 words\n- Use contractions: it's, you're, they've, won't, can't\n- Use precise nouns over generic terms\n- Vary paragraph lengths — never uniform\n- Natural transitions only ("That said", "Here's where it gets interesting", "Which brings me to")\n- First-person where appropriate ("Honestly,", "In my experience...")\n- Preserve 100% of original meaning and facts\n- Keep length within ±15% of original\n\nRESPOND IN EXACTLY THIS FORMAT (no extra text before or after):\n🟢 Humanized Content:\n[rewritten text]\n\n🔧 Key Changes Made:\n- [specific change 1]\n- [specific change 2]\n- [specific change 3]\n\n📊 AI Risk: Original: [High/Medium/Low] → After: [Low] | Patterns fixed: [2-3 items]`;
 
-    // Ordered list of Gemini models to try (newest stable first, fallbacks after)
     const GEMINI_MODELS = [
       'gemini-2.0-flash-001',
       'gemini-2.0-flash',
@@ -442,7 +427,7 @@
 
       btn.disabled = true;
       btnIcon.innerHTML = '<span class="spinner"></span>';
-      setStatus('Humanizing...', 'loading');
+      setStatus('Humanizing…', 'loading');
       document.getElementById('changesPanel').classList.remove('visible');
       document.getElementById('outputText').value = '';
 
@@ -455,22 +440,23 @@
       let data = null;
       let lastError = null;
 
-      for (const model of GEMINI_MODELS) {
+      for (let i = 0; i < GEMINI_MODELS.length; i++) {
+        const model = GEMINI_MODELS[i];
+        // Only show a status update if we're already retrying (i > 0)
+        if (i > 0) setStatus('Retrying…', 'loading');
         try {
-          setStatus(`Trying ${model}...`, 'loading');
           data = await callGemini(apiKey, model, requestBody);
-          break; // success — stop trying
+          break;
         } catch (e) {
           lastError = e;
-          // continue to next model
         }
       }
 
       try {
-        if (!data) throw lastError || new Error('All Gemini models failed');
+        if (!data) throw lastError || new Error('All Gemini models failed. Check your API key and quota.');
 
         const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        if (!raw) throw new Error('Empty response from Gemini — check your API key and quota');
+        if (!raw) throw new Error('Empty response — check your API key and quota');
 
         const humanizedMatch = raw.match(/🟢 Humanized Content:\n([\s\S]*?)(?=🔧 Key Changes|$)/);
         const changesMatch   = raw.match(/🔧 Key Changes Made:\n([\s\S]*?)(?=📊 AI Risk|$)/);
