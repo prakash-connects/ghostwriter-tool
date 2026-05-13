@@ -265,7 +265,6 @@
   <nav class="fade-up delay-1">
     <a href="https://prakashconnects.me" class="nav-logo">
       <span class="nav-logo-icon">
-        <!-- small adaptive quill mark -->
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M16.5 2.5C16.5 2.5 12.5 4.5 9 10C7.2 13 6.5 16 6.5 16L9 13.2C9 13.2 8.2 16.5 5.5 19" stroke="var(--ink)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M5.5 19C5.5 19 6.5 17 8.5 16" stroke="var(--faint)" stroke-width="1.2" stroke-linecap="round"/>
@@ -287,17 +286,8 @@
   <!-- HERO -->
   <div class="hero fade-up delay-2">
     <div class="hero-logo">
-      <!--
-        ADAPTIVE LOGO: uses CSS variables for all colours.
-        Dark mode: ghost is dark-filled, quill is bright white.
-        Light mode: ghost is off-white parchment, quill is dark ink.
-        Both look intentional and polished in their respective mode.
-      -->
       <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Outer soft ring -->
         <circle cx="40" cy="40" r="38" stroke="var(--logo-ring)" stroke-width="1"/>
-
-        <!-- Ghost body -->
         <path d="
           M16 58
           V35
@@ -313,27 +303,15 @@
           L23 53.5
           Z
         " fill="var(--ghost-fill)" stroke="var(--ghost-stroke)" stroke-width="1.6" stroke-linejoin="round"/>
-
-        <!-- Ghost eyes - left -->
         <ellipse cx="33" cy="35" rx="3.5" ry="4" fill="var(--ghost-eye)"/>
         <circle cx="34" cy="34.5" r="1.3" fill="var(--bg)" opacity="0.5"/>
-
-        <!-- Ghost eyes - right -->
         <ellipse cx="47" cy="35" rx="3.5" ry="4" fill="var(--ghost-eye)"/>
         <circle cx="48" cy="34.5" r="1.3" fill="var(--bg)" opacity="0.5"/>
-
-        <!-- Quill feather - main stroke from top-right diagonally across ghost -->
         <path d="M62 10 C62 10 46 20 38 35 C34.5 42 34 48 34 48 L40 42" stroke="var(--ghost-quill)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
-
-        <!-- Quill feather - barbs/vane lines to give it a feather look -->
         <path d="M56 16 C52 20 47 26 44 32" stroke="var(--ghost-quill)" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
         <path d="M59 13 C55 18 50 24 47 30" stroke="var(--ghost-quill)" stroke-width="0.8" stroke-linecap="round" opacity="0.28"/>
-
-        <!-- Quill nib / tip at bottom -->
         <path d="M34 48 C32 54 30 57 27 61" stroke="var(--ghost-quill)" stroke-width="1.8" stroke-linecap="round"/>
         <path d="M27 61 C28.5 58.5 31 57 33 56.5" stroke="var(--ghost-nib)" stroke-width="1.4" stroke-linecap="round"/>
-
-        <!-- Ink drop at nib tip -->
         <circle cx="62" cy="10" r="3" fill="var(--ghost-quill)" opacity="0.75"/>
         <circle cx="62" cy="10" r="1.2" fill="var(--bg)" opacity="0.35"/>
       </svg>
@@ -412,31 +390,14 @@
   <div class="toast" id="toast">Copied to clipboard ✓</div>
 
   <script>
-    const SYSTEM_PROMPT = `You are a precision content humanizer trained on the science of AI text detection. Transform the given text so it reads as genuinely human — raising statistical perplexity, injecting burstiness, and eliminating every detectable AI linguistic fingerprint.
+    const SYSTEM_PROMPT = `You are a precision content humanizer trained on the science of AI text detection. Transform the given text so it reads as genuinely human — raising statistical perplexity, injecting burstiness, and eliminating every detectable AI linguistic fingerprint.\n\nHARD BAN — never use these words/phrases:\n"It's important to note", "It is worth noting", "Moreover", "Furthermore", "Indeed", "Consequently", "In conclusion", "To summarize", "In summary", "This underscores", "This highlights", "This demonstrates", "Needless to say", "At the end of the day", "In today's fast-paced world", "In the ever-evolving landscape", "Leverage" (metaphorical), "Utilize" (when "use" works), "Delve into", "Deep dive", "Navigate the landscape", "Tapestry", "Pivotal", "Meticulous", "Meticulously", "Vibrant", "Realm", "Showcasing", "Underscores", "Seamlessly", "Game-changer", "Revolutionary", "Groundbreaking", "Paradigm shift", "It seems that", "It appears that", "In order to", "Due to the fact that", "Each and every", "First and foremost", "Last but not least"\n\nRULES:\n- Every paragraph: at least one sentence under 8 words AND one over 25 words\n- Use contractions: it's, you're, they've, won't, can't\n- Use precise nouns over generic terms\n- Vary paragraph lengths — never uniform\n- Natural transitions only ("That said", "Here's where it gets interesting", "Which brings me to")\n- First-person where appropriate ("Honestly,", "In my experience...")\n- Preserve 100% of original meaning and facts\n- Keep length within ±15% of original\n\nRESPOND IN EXACTLY THIS FORMAT (no extra text before or after):\n🟢 Humanized Content:\n[rewritten text]\n\n🔧 Key Changes Made:\n- [specific change 1]\n- [specific change 2]\n- [specific change 3]\n\n📊 AI Risk: Original: [High/Medium/Low] → After: [Low] | Patterns fixed: [2-3 items]`;
 
-HARD BAN — never use these words/phrases:
-"It's important to note", "It is worth noting", "Moreover", "Furthermore", "Indeed", "Consequently", "In conclusion", "To summarize", "In summary", "This underscores", "This highlights", "This demonstrates", "Needless to say", "At the end of the day", "In today's fast-paced world", "In the ever-evolving landscape", "Leverage" (metaphorical), "Utilize" (when "use" works), "Delve into", "Deep dive", "Navigate the landscape", "Tapestry", "Pivotal", "Meticulous", "Meticulously", "Vibrant", "Realm", "Showcasing", "Underscores", "Seamlessly", "Game-changer", "Revolutionary", "Groundbreaking", "Paradigm shift", "It seems that", "It appears that", "In order to", "Due to the fact that", "Each and every", "First and foremost", "Last but not least"
-
-RULES:
-- Every paragraph: at least one sentence under 8 words AND one over 25 words
-- Use contractions: it's, you're, they've, won't, can't
-- Use precise nouns over generic terms
-- Vary paragraph lengths — never uniform
-- Natural transitions only ("That said", "Here's where it gets interesting", "Which brings me to")
-- First-person where appropriate ("Honestly,", "In my experience...")
-- Preserve 100% of original meaning and facts
-- Keep length within ±15% of original
-
-RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
-🟢 Humanized Content:
-[rewritten text]
-
-🔧 Key Changes Made:
-- [specific change 1]
-- [specific change 2]
-- [specific change 3]
-
-📊 AI Risk: Original: [High/Medium/Low] → After: [Low] | Patterns fixed: [2-3 items]`;
+    // Ordered list of Gemini models to try (newest stable first, fallbacks after)
+    const GEMINI_MODELS = [
+      'gemini-2.0-flash-001',
+      'gemini-2.0-flash',
+      'gemini-1.5-flash-latest'
+    ];
 
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon   = document.getElementById('themeIcon');
@@ -453,6 +414,18 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
     themeToggle.addEventListener('click', () => {
       applyTheme(document.body.classList.contains('light-mode') ? 'dark' : 'light');
     });
+
+    async function callGemini(apiKey, model, body) {
+      const res = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+        { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+      );
+      if (!res.ok) {
+        const e = await res.json();
+        throw new Error(e.error?.message || `API error ${res.status}`);
+      }
+      return res.json();
+    }
 
     async function humanize() {
       const apiKey    = document.getElementById('apiKey').value.trim();
@@ -473,23 +446,31 @@ RESPOND IN EXACTLY THIS FORMAT (no extra text before or after):
       document.getElementById('changesPanel').classList.remove('visible');
       document.getElementById('outputText').value = '';
 
+      const requestBody = {
+        system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
+        contents: [{ parts: [{ text: `Platform: ${platform}\nTone: ${tone}\nLength: ${length}\n\nText to humanize:\n${inputText}` }] }],
+        generationConfig: { temperature: 0.85, maxOutputTokens: 8192 }
+      };
+
+      let data = null;
+      let lastError = null;
+
+      for (const model of GEMINI_MODELS) {
+        try {
+          setStatus(`Trying ${model}...`, 'loading');
+          data = await callGemini(apiKey, model, requestBody);
+          break; // success — stop trying
+        } catch (e) {
+          lastError = e;
+          // continue to next model
+        }
+      }
+
       try {
-        const res = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              system_instruction: { parts: [{ text: SYSTEM_PROMPT }] },
-              contents: [{ parts: [{ text: `Platform: ${platform}\nTone: ${tone}\nLength: ${length}\n\nText to humanize:\n${inputText}` }] }],
-              generationConfig: { temperature: 0.85, maxOutputTokens: 8192 }
-            })
-          }
-        );
-        if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `API error ${res.status}`); }
-        const data = await res.json();
-        const raw  = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-        if (!raw) throw new Error('Empty response from Gemini');
+        if (!data) throw lastError || new Error('All Gemini models failed');
+
+        const raw = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        if (!raw) throw new Error('Empty response from Gemini — check your API key and quota');
 
         const humanizedMatch = raw.match(/🟢 Humanized Content:\n([\s\S]*?)(?=🔧 Key Changes|$)/);
         const changesMatch   = raw.match(/🔧 Key Changes Made:\n([\s\S]*?)(?=📊 AI Risk|$)/);
